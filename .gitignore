@@ -61,7 +61,7 @@ db.sqlite3-journal
 # Static files (production)
 /staticfiles/
 /static/
-
+git config --global user.nameemasilil
 # Coverage reports
 htmlcov/
 .coverage
