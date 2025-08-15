@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Wallet Watcher - Check Any Ethereum Wallet{% endblock %}
+
+{% load static %}
+
+
+
+
+{% block content %}
+    <div class="container">
+        <div class="wallet-form">
+            <div class="app-header">
+                <h1 class="app-title">Wallet Watcher</h1>
+                <p class="app-subtitle">Your Crypto Companion</p>
+            </div>
+
+
+            <div class="search-card">
+                <form method="post" class="needs-validation" novalidate>
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="{{ form.address.id_for_label }}" class="form-label">
+                            {{ form.address.label }}
+                        </label>
+                        <input
+                                type="text"
+                                name="{{ form.address.name }}"
+                                id="{{ form.address.id_for_label }}"
+                                class="wallet-input"
+                                placeholder="0x742d35cc6634c05329..."
+                                value="{{ form.address.value|default:'' }}"
+                                required
+                        >
+
+                        {% if form.address.help_text %}
+                            <div class="form-text">{{ form.address.help_text }}</div>
+                        {% endif %}
+
+                        {% if form.address.errors %}
+                            {% for error in form.address.errors %}
+                                <div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="search-button">
+                        Check Wallet
+                    </button>
+                </form>
+            </div>
+
+            <div class="example-text">
+                Example: <span class="example-address" onclick="fillExample()">0x112532B200980Ddee8226023bEbBE2E6884C31e2</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const addressInput = document.querySelector('.wallet-input');
+
+            // Auto-focus on the input
+            addressInput.focus();
+
+            // Add validation feedback
+            addressInput.addEventListener('input', function () {
+                const value = this.value.trim();
+                this.classList.remove('is-valid', 'is-invalid');
+
+                if (value.length === 42 && value.startsWith('0x') && /^0x[a-fA-F0-9]{40}$/.test(value)) {
+                    this.classList.add('is-valid');
+                } else if (value.length > 0) {
+                    this.classList.add('is-invalid');
+                }
+            });
+
+            // Handle paste events
+            addressInput.addEventListener('paste', function (e) {
+                setTimeout(() => {
+                    this.dispatchEvent(new Event('input'));
+                }, 10);
+            });
+        });
+
+        function fillExample() {
+            const input = document.querySelector('.wallet-input');
+            input.value = '0x112532B200980Ddee8226023bEbBE2E6884C31e2';
+            input.dispatchEvent(new Event('input'));
+            input.focus();
+        }
+
+        // Add some interactivity
+        document.querySelectorAll('.example-address').forEach(item => {
+            item.addEventListener('click', function () {
+                fillExample();
+            });
+        });
+    </script>
+{% endblock %}

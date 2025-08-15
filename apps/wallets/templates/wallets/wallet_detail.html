@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Wallet {{ address }} - Wallet Watcher{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <a href="{% url 'wallets:index' %}" class="back-link">← Check Another Wallet</a>
+
+        <div class="wallet-card">
+            <div class="wallet-address">{{ address }}</div>
+
+            {% if wallet_data %}
+                <ul class="token-list">
+                    {% for token in wallet_data %}
+                        <li class="token-item">
+                            <div class="token-row">
+                                <span class="token-symbol">{{ token.symbol }}</span>
+                                <span class="token-usd">${{ token.usd_value }}</span>
+                            </div>
+                            <div class="token-row token-secondary">
+                                <span class="token-name">{{ token.name }}</span>
+                                <span class="token-balance">{{ token.balance }}</span>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <div class="alert alert-info" style="color: var(--placeholder-color);">
+                    <strong>Wallet is empty</strong>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
