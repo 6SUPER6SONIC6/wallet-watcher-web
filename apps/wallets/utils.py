@@ -9,7 +9,8 @@ def format_amount(amount: float) -> str:
         return f"{amount:.2f}".rstrip("0").rstrip(".")
 
 
-def is_spam_token(token_info) -> bool:
+def is_spam_token(token_data) -> bool:
+    token_info = token_data["tokenInfo"]
     spam_keywords = ["http", ".com", "claim", "gift", "visit", "earn", "free"]
     token_name = token_info.get("name", None)
     token_symbol = token_info.get("symbol", None)

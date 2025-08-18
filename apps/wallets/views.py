@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
 from apps.wallets.forms import WalletAddressForm
-from apps.wallets.wallet_checker import get_wallet_data
+from apps.wallets.wallet_checker import WalletChecker
 
 
 def index(request):
@@ -19,6 +19,6 @@ def index(request):
 def wallet_detail(request, address):
     context = {
         'address': address,
-        'wallet_data': get_wallet_data(address)
+        'wallet_data': WalletChecker().get_wallet_data(address)
     }
     return render(request, 'wallets/wallet_detail.html', context)
