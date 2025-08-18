@@ -17,8 +17,9 @@ def index(request):
 
 
 def wallet_detail(request, address):
+    wallet_data = WalletChecker(address).get_wallet_data()
     context = {
         'address': address,
-        'wallet_data': WalletChecker().get_wallet_data(address)
+        'wallet_data': wallet_data,
     }
     return render(request, 'wallets/wallet_detail.html', context)

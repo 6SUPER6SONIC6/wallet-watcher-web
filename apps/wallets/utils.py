@@ -6,7 +6,7 @@ def format_amount(amount: float) -> str:
     elif amount < 1:
         return f"{amount:.4f}".rstrip("0").rstrip(".")
     else:
-        return f"{amount:.2f}".rstrip("0").rstrip(".")
+        return f"{amount:,.2f}".rstrip("0").rstrip(".")
 
 
 def is_spam_token(token_data) -> bool:

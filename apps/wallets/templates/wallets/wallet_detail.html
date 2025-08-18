@@ -5,13 +5,13 @@
 {% block content %}
     <div class="container">
         <a href="{% url 'wallets:index' %}" class="back-link">← Check Another Wallet</a>
-
+        <div class="wallet-address">{{ address }}</div>
         <div class="wallet-card">
-            <div class="wallet-address">{{ address }}</div>
-
             {% if wallet_data %}
+                <div class="total-balance-title">Total Balance</div>
+                <div class="total-balance">${{ wallet_data.total_balance }}</div>
                 <ul class="token-list">
-                    {% for token in wallet_data %}
+                    {% for token in wallet_data.tokens %}
                         <li class="token-item">
                             <div class="token-row">
                                 <span class="token-symbol">{{ token.symbol }}</span>
