@@ -1,0 +1,4 @@
+Django==5.2.5
+psycopg-binary==3.2.9
+requests==2.32.4
+python-decouple==3.8
